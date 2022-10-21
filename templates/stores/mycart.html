@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+<!-- title -->
+{% block title %}
+    Welcome DovePhone-Index
+{% endblock title %}
+
+<!-- body -->
+{% block content %}
+  
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h5 class="display-5 text-center">My Orders</h5>
+            <table class="table table-stripped table-responsive">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>X</th>
+                        <th>Item Image</th>
+                        <th>Item Name</th>
+                        <th>Rate</th>
+                        <th>Quantity</th>
+                        <th>Item Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if cart %}
+                        {% for cart in cart.cartproduct_set.all %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>
+                                <a href="{% url 'manageCart' cart.id %}?action=rmv" class="text-decoration-none"> <i class="bi bi-trash"></i></a>
+                            </td>
+                            <td><img src="{{cart.product.image.url}}" width="100" alt="" class="table-img img-fluid"></td>
+                            <td>{{cart.product.title}}</td>
+                            <td>&#8358;{{cart.rate | intcomma}}</td>
+                            <td>
+                                <a href="{% url 'manageCart' cart.id %}?action=dcr" class="text-decoration-none"><i class="bi bi-dash-circle"></i></a>
+                                {{cart.quantity}}
+                                <a href="{% url 'manageCart' cart.id %}?action=inc" class="text-decoration-none"><i class="bi bi-plus-circle"></i></a>
+                            </td>
+                            <td>&#8358;{{cart.subtotal| intcomma}}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <th colspan="6">
+                                <h4 class="display-4 fw-bold">Grand Total: {{cart.total |intcomma}}</h4>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <a href="{% url 'home' %}" class="btn btn-dark">Continue Shopping</a>
+                                </div>
+                            </td>
+                            {% if cart.cartproduct_set.all %}
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <a href="{% url 'emptyCart' %}" class="btn btn-dark">Clear Cart</a>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <a href="{% url 'checkout' %}" class="btn btn-dark">Proceed To Checkout</a>
+                                </div>
+                            </td>
+                            {% else %}
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <button type="submit" disabled class="btn btn-dark">Clear Cart</button>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <button type="submit" disabled class="btn btn-dark">Proceed To Checkout</button>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% else %}
+                    </tbody>       
+                    
+                  <p class="lead bg-danger text-white p-3">No Order Made Yet</p>
+                {% endif %}
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+

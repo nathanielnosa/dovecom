@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+  
+<div class="container my-5">
+    <div class="card p-5">
+       <div class="row">
+           <div class="col-md-5 text-center">
+               <h3>My Personal Info</h3>
+               {% if profile %}
+                {% if profile.profile_pix %}
+                <img src="{{profile.profile_pix.url}}" width="100" height="100" class="rounded rounded-circle" alt="">
+                {% else %}
+                    <img src="{% static 'image/avar.png' %}" width="100" height="100" class="rounded rounded-circle" alt="">
+                {% endif %}
+               <ul class="list-group">
+                   <li class="list-group-item"><strong>Fullname:</strong> {{profile.fullname}}</li>
+                   <li class="list-group-item"><strong>Username:</strong> {{profile.username}}</li>
+                   <a href="{% url 'updateprofile' %}" class="list-group-item btn btn-success">Edit Profile</a>
+               </ul>
+               {% else %}
+                 <p class="lead bg-danger p-4">No Info</p>
+               {% endif %}
+               
+           </div>
+           <div class="col-md-7">
+               <h3>My Order Info</h3>
+               {% if orders %}
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Product Name</th>
+                            <th>Image</th>
+                            <th>Amount</th>
+                            <th>Order Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{order}}</td>
+                            <td><img src="{{order.product.image.url}}" class="img-fluid" alt=""></td>
+                            <td><strong> &#8358; {{order.amount | intcomma}}</strong></td>
+                            <td>{{order.order_status}}</td>
+                        </tr> 
+                        {% endfor %}
+                    </tbody>
+                </table>
+               {% else %}
+                 no
+               {% endif %}
+               
+           </div>
+       </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,102 @@
+/* loader */
+.loader-content #circle{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+}
+
+.loader-content .loader{
+    padding: 5px;
+    width: calc(100% - 0px);
+    height: calc(100% - 0px);
+    border: 3px solid #000;
+    border-radius: 50%;
+    border-bottom: 2px solid red;
+    border-top: 2px solid red;
+    animation: rotates 5s linear infinite;
+}
+
+@keyframes rotates{
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* navbar */
+.navbar, .footer{
+    background: #1b6d3e !important;
+    color: #fff !important;
+}
+.navbar-brand{
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #fff !important;
+}
+
+.carousel-item img{
+    height: 90vh !important;
+}
+
+/* products */
+/* products */
+#img-effect .card{
+    position: relative;
+    width: 100%;
+    height: 47vh;
+}
+#img-effect .card .panel{
+    position: absolute;
+    top:0;right: -50%;
+    opacity: 0;
+    width: 20%;
+    background: #0b4725;
+    border-radius: .3rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: all 1s ease;
+}
+#img-effect .card:hover .panel{
+    right: 0px;
+    top: 0px;
+    opacity: .8;
+}
+#img-effect .card .panel a{
+    font-size: 1.5rem;
+    color: #fff;
+    margin: .5rem 0;
+}
+#img-effect .card .panel a:hover{
+    color: #ff0000b0;
+}
+
+#img-effect .card .discount{
+    height: 60px;
+    width: 30px;
+    border-radius: 50%;
+    background: red;
+    padding: .6rem;
+    color: white;
+}
+
+#img-effect .card .btn{
+    position: absolute;
+    width: 100%;
+    bottom: 0%;
+    left:50%;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: all 1s ease;
+    transition-delay: .2s;
+}
+#img-effect .card:hover .btn{
+    left:-50%;
+    bottom: 0%;
+    opacity: 1;
+    transform: translateX(50%);
+}
+
+

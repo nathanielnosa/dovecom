@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+<!-- title -->
+{% block title %}
+    Welcome DovePhone-{{product.title}}
+{% endblock title %}
+
+<!-- body -->
+{% block content %}
+
+  <!-- products -->
+  <div class="container-fluid my-4">
+    <div class="row">
+        {% if product %}
+            {% for product in product %}
+            <div class="col-md-8">
+                <div class="card my-2">
+                 <a href="{% url 'details' product.id %}">
+                    <img src="{{product.image.url}}" width="300" height="100" alt="" class="img-fluid mx-auto">
+                 </a> 
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card my-2">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h3 class="display-3 fw-bold">{{product.title}}</h3>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="fw-bold">Views: {{product.view_count}}</span>
+                        </li>
+                        {% if product.discount_price %}
+                          <li class="list-group-item">
+                            <span class="fw-bold">Discount: {{product.discount_price}}</span>
+                            Price:<strike class="text-danger">{{product.price}}</strike>
+                          </li>
+                          {% else %}
+                          <li class="list-group-item fw-bold">{{product.price}}</li>
+                        {% endif %}
+    
+                        <li class="list-group-item">
+                            <div class="d-grid">
+                                <a href="" class="btn btn-success">Add To Cart</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p class="lead bg-danger my-3 p-3">No Product Available</p>
+        {% endif %}
+      
+    </div>
+  </div>
+
+
+{% endblock content %}
+

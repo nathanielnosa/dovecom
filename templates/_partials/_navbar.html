@@ -1,0 +1,51 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">DovePhone</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="navbar-nav fw-bold mx-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'home' %}"><i class="bi bi-house"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#"><i class="bi bi-info"></i> About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-person"></i> User</a>
+            <ul class="dropdown-menu bg-success">
+              {% if request.user.is_authenticated %}
+              <li><a class="dropdown-item text-white" href="{% url 'logoutuser' %}">Logout User</a></li>
+
+              {% else %}
+              <li><a class="dropdown-item text-white" href="{% url 'loginuser' %}">Login</a></li>
+              <li><a class="dropdown-item text-white" href="{% url 'register' %}">Register</a></li>
+              {% endif %}
+  
+              
+            </ul>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'dashboard' %}"><i class="bi bi-palette"></i> {{request.user.username}} Dashboard</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'register' %}"><i class="bi bi-palette"></i> Dashboard</a>
+          </li>
+          {% endif %}
+
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'myCart' %}"><i class="bi bi-cart"></i>Cart</a>
+          </li>
+        </ul>
+        <form class="d-flex" method="get" action="{% url 'search' %}">
+          {% csrf_token %}
+          <input class="form-control me-2" type="text" name="kw" placeholder="Search">
+          <button class="btn btn-light" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
